@@ -23,6 +23,7 @@
     "boom": "^6.0.0",
     "koa": "^2.3.0",
     "koa-router": "^7.2.1",
-    "koahub-handlebars": "^2.0.9"
+    "koahub-handlebars": "^2.0.9",
+    "mysql": "^2.14.1"
   }
 }

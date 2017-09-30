@@ -1,15 +1,29 @@
-const Koa = require('koa');
-const Router = require('koa-router');
-const Boom = require('boom');
-const hbs = require('koahub-handlebars');
+//сторонние модули
+const Koa = require('koa'),
+      Router = require('koa-router'),
+      Boom = require('boom'),
+      hbs = require('koahub-handlebars');
 
-const app = new Koa();
-const router = new Router();
+//константы
+const {createMySQLConnection} = require('./helpers'),
+      dbOptions = {
+        host: 'localhost',
+        user: 'root',
+        password: '12345',
+        database: 'wheel_sizes'
+      },
+      db = createMySQLConnection(dbOptions),
+      app = new Koa(),
+      router = new Router();
+
 
 router
   .get('/', async ctx => {
-    await ctx.render('main', {title: 'test', numbers: [10, 11, 21, 31]});
-  })
+    const dbTables = await db.q('SHOW TABLES;');
+    const tables = dbTables.map(result => result[`Tables_in_${dbOptions.database}`].replace('_', '-'));
+    await ctx.render('main', {title: 'test', tables});
+    // db.destroy();
+  });
 
 app
   .use(hbs.middleware({
