@@ -1,16 +1,37 @@
 const Koa = require('koa');
-var hbs = require('koahub-handlebars');
+const Router = require('koa-router');
+const Boom = require('boom');
+const hbs = require('koahub-handlebars');
+// const views = require('koa-views');
+
 const app = new Koa();
+const router = new Router();
 
-app.use(hbs.middleware({
-  extname: '.handlebars',
-  viewPath: './public/templates',
-  layoutsPath: './public/templates',
-  defaultLayout: 'layout'
-}));
+router
+  .get('/', async ctx => {
+    await ctx.render('main', {title: 'test', numbers: [10, 11, 21, 31]});
+  })
+  // .get('/haml', async ctx => {
+  //   await ctx.render('mainhaml')
+  // })
 
-app.use(async ctx => {
-  await ctx.render('main', {title: 'test', numbers: [10, 1, 2, 3]})
-});
+app
+  .use(hbs.middleware({
+    extname: '.handlebars',
+    viewPath: './public/templates',
+    layoutsPath: './public/templates',
+    defaultLayout: 'layout'
+  }))
+  // .use(views(__dirname + '/public/templates', {
+  //   extension: 'haml',
+  //   map: {
+  //     haml: 'haml'
+  //   }
+  // }))
+  .use(router.routes())
+  .use(router.allowedMethods({
+    notImplemented: () => new Boom.notImplemented(),
+    methodNotAllowed: () => new Boom.methodNotAllowed()
+  }))
 
-app.listen(3000);
+  .listen(3000);
