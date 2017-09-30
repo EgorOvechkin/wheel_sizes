@@ -4,7 +4,9 @@ const app = new Koa();
 
 app.use(hbs.middleware({
   extname: '.handlebars',
-  viewPath: './public/templates'
+  viewPath: './public/templates',
+  layoutsPath: './public/templates',
+  defaultLayout: 'layout'
 }));
 
 app.use(async ctx => {
