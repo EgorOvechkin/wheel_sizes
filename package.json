@@ -1,0 +1,26 @@
+{
+  "name": "wheel-sizes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EgorOvechkin/wheel_sizes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EgorOvechkin/wheel_sizes/issues"
+  },
+  "homepage": "https://github.com/EgorOvechkin/wheel_sizes#readme",
+  "dependencies": {
+    "babel-runtime": "^6.26.0",
+    "koa": "^2.3.0",
+    "koahub-handlebars": "^2.0.9"
+  }
+}
